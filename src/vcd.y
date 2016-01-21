@@ -1,8 +1,8 @@
 // -*- Bison -*-
 %skeleton "lalr1.cc"
 %defines
-%define namespace "vcd"
-%define parser_class_name "vcd_parser"
+%define api.namespace {vcd}
+%define parser_class_name {vcd_parser}
 %language "c++"
 %output "vcd.cc"
 %parse-param {vcd::VCDLexer* lexer}
@@ -184,7 +184,7 @@ identifier
 
 %%
 
-void vcd::vcd_parser::error (const vcd::location& loc, const std::string& msg) {
-  std::cout << loc << ":" << msg << std::endl;
+void vcd::vcd_parser::error (const std::string& msg) {
+  std::cout << ":" << msg << std::endl;
   }
 

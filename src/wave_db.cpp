@@ -30,6 +30,8 @@
 
 using std::string;
 
+using namespace std;
+
 vcd::SigRecord::SigRecord(const std::string& sig_name, const CRange& range, unsigned int width)
   : sig_name(sig_name), range(range), width(width) {}
 
@@ -77,5 +79,29 @@ void vcd::WaveDB::set_time(mpz_class t) {
 
 void vcd::WaveDB::add_id(const std::string& id, const std::string& ref, const CRange& r, unsigned int w) {
   idDB[id] = SigRecord(ref, r, w);
+}
+
+
+char vcd::WaveDB::get_delimeter()
+{
+    return this->delimiter;
+}
+
+void vcd::WaveDB::report_scope()
+{
+    std::list<std::string>::iterator lit;
+
+    cout << "--Scope Report--\n" << endl;
+
+    for(lit = current_scope.begin(); lit != current_scope.end(); ++lit)
+    {
+       string cur = *lit;
+       cout << cur << endl;
+    }
+}
+
+void report_signals_all( report_style_t style )
+{
+   //report all signal changes 
 }
 

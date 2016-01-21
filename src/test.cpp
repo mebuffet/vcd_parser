@@ -26,8 +26,12 @@
  *
  */
 
+#include <iostream>
 #include "vcd_parser.hpp"
 #include "wave_db.hpp"
+
+//:w
+//using namespase std;
 
 int main(int argc, char* argv[]) {
   vcd::VCDParser parser(argv[1]);
@@ -35,6 +39,12 @@ int main(int argc, char* argv[]) {
   vcd::WaveDB db;
   
   parser.parse(&db);
+
+  std::cout << "- delimeter field: '" << db.get_delimeter() << "'" << std::endl; 
+
+  std::cout << "- hier field: '" << db.get_hier() << "'" << std::endl;
+
+  db.report_scope();
 
   return 1;
   

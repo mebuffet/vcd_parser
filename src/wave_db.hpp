@@ -34,9 +34,17 @@
 #include <vector>
 #include <gmpxx.h>
 #include <cassert>
+#include <iostream>
 #include "crange.hpp"
 
 namespace vcd {
+
+  typedef enum _report_style
+  {
+      STRING,
+      RVALUE
+  }report_style_t;
+
 
   class SigRecord {
   public:
@@ -67,6 +75,16 @@ namespace vcd {
       assert(idDB.count(id));
       idDB[id].record_change(current_time, v);
     }
+
+    //geters
+    char get_delimeter();
+    std::string get_hier()
+        { return this->hier; }
+    
+    //display functions
+    void report_scope();
+    void report_signals_all( report_style_t style );
+
 
   private:
     char delimiter;
