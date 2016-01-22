@@ -45,6 +45,18 @@ void vcd::SigRecord::record_change(mpz_class ctime, const double& val) {
     rvalue.push_back(std::pair<mpz_class, double>(ctime, val));
 }
 
+void vcd::SigRecord::print_signal()
+{
+    std::list<std::pair<mpz_class, std::string> >::iterator sig_iter;
+
+    for (sig_iter = this->value.begin(); sig_iter != this->value.end(); ++sig_iter)
+    {
+        mpz_class tmp_mpz = sig_iter->first;
+        string tmp_nam = sig_iter->second;
+        cout << "-> " << tmp_mpz.get_d() << " : " << tmp_nam << endl;
+    }
+}
+
 vcd::WaveDB::WaveDB() 
   : delimiter('/'), time_unit(1, "ns"), current_time(0) { }
 

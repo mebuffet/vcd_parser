@@ -58,6 +58,8 @@ namespace vcd {
 
     void record_change(mpz_class, const std::string&);
     void record_change(mpz_class, const double&);
+
+    void print_signal();
   };
 
   class WaveDB {
