@@ -114,6 +114,7 @@ void vcd::WaveDB::report_scope()
 
 void report_signals_all( report_style_t style )
 {
-   //report all signal changes 
+   //report all signal changes
+   //placeholder for signal record iteration
 }
 
