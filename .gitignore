@@ -13,3 +13,6 @@
 *.a
 
 bin/
+src/vcd.cc
+src/vcd.hh
+src/stack.hh

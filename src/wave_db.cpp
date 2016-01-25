@@ -40,6 +40,17 @@ void vcd::SigRecord::record_change(mpz_class ctime, const std::string& val) {
     value.push_back(std::pair<mpz_class, string>(ctime, val));
 }
 
+void vcd::SigRecord::record_change(mpz_class ctime, const char& val) {
+  stringstream ss;
+  std::string sval;
+
+  ss << val;
+  ss >> sval;
+
+  if(value.empty() || value.back().second != sval)
+    value.push_back(std::pair<mpz_class, string>(ctime, sval));
+}
+
 void vcd::SigRecord::record_change(mpz_class ctime, const double& val) {
   if(rvalue.empty() || rvalue.back().second != val)
     rvalue.push_back(std::pair<mpz_class, double>(ctime, val));

@@ -35,6 +35,7 @@
 #include <gmpxx.h>
 #include <cassert>
 #include <iostream>
+#include <sstream>
 #include "crange.hpp"
 
 namespace vcd {
@@ -59,7 +60,8 @@ namespace vcd {
 
     void record_change(mpz_class, const std::string&);
     void record_change(mpz_class, const double&);
-
+    void record_change(mpz_class, const char&);
+    
     void print_signal();
   };
 
