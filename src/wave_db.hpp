@@ -39,12 +39,13 @@
 
 namespace vcd {
 
-  typedef enum _report_style
+  enum _report_style
   {
       STRING,
       RVALUE
-  }report_style_t;
+  };
 
+  typedef enum _report_style report_style_t;
 
   class SigRecord {
   public:

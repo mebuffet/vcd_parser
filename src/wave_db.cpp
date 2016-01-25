@@ -47,14 +47,34 @@ void vcd::SigRecord::record_change(mpz_class ctime, const double& val) {
 
 void vcd::SigRecord::print_signal()
 {
-    std::list<std::pair<mpz_class, std::string> >::iterator sig_iter;
-
-    for (sig_iter = this->value.begin(); sig_iter != this->value.end(); ++sig_iter)
+    cout << "Changes:";
+    
+    if (value.size() != 0)
     {
-        mpz_class tmp_mpz = sig_iter->first;
-        string tmp_nam = sig_iter->second;
-        cout << "-> " << tmp_mpz.get_d() << " : " << tmp_nam << endl;
+        std::list<std::pair<mpz_class, std::string> >::iterator sig_iter;
+
+        cout << value.size() << "\n" << endl;
+        for (sig_iter = this->value.begin(); sig_iter != this->value.end(); ++sig_iter)
+        {
+            mpz_class tmp_mpz = sig_iter->first;
+            string tmp_nam = sig_iter->second;
+            cout << "-> " << tmp_mpz.get_d() << "\t:\t" << tmp_nam << endl;
+        }
     }
+    else
+    {
+        std::list<std::pair<mpz_class, double> >::iterator sig_iter;
+
+        cout << rvalue.size() << "\n" << endl;
+        for (sig_iter = this->rvalue.begin(); sig_iter != this->rvalue.end(); ++sig_iter)
+        {
+            mpz_class tmp_mpz = sig_iter->first;
+            double tmp_num = sig_iter->second;
+            cout << "-> " << tmp_mpz.get_d() << "\t:\t" << tmp_num << endl;
+        }
+    }
+    
+    cout << endl;
 }
 
 vcd::WaveDB::WaveDB() 
@@ -112,9 +132,26 @@ void vcd::WaveDB::report_scope()
     }
 }
 
-void report_signals_all( report_style_t style )
+void vcd::WaveDB::report_signals_all( vcd::report_style_t style )
 {
    //report all signal changes
-   //placeholder for signal record iteration
+   //iterates the idDB map
+   
+    cout << "--Signal Report--\n" << endl;
+
+    std::map<std::string, vcd::SigRecord>::iterator sig_iter;
+
+    cout << "Total Signals:" << idDB.size() << "\n" << endl;
+
+   for (sig_iter = idDB.begin(); sig_iter != idDB.end(); ++sig_iter)
+   {
+       string tmp_nam = sig_iter->first;
+       vcd::SigRecord tmp_sig = sig_iter->second;
+
+       cout << "Signal ID: " << tmp_nam << endl;
+       tmp_sig.print_signal();
+
+   }
+
 }
 

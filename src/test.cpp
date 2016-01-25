@@ -37,6 +37,7 @@ int main(int argc, char* argv[]) {
   vcd::VCDParser parser(argv[1]);
   
   vcd::WaveDB db;
+  vcd::report_style_t d_style = vcd::STRING;
   
   parser.parse(&db);
 
@@ -45,6 +46,8 @@ int main(int argc, char* argv[]) {
   std::cout << "- hier field: '" << db.get_hier() << "'" << std::endl;
 
   db.report_scope();
+  db.report_signals_all (d_style);
+
 
   return 1;
   
