@@ -79,6 +79,9 @@ namespace vcd {
     void add_change(const std::string& id, const VT& v) {
       assert(idDB.count(id));
       idDB[id].record_change(current_time, v);
+      
+      std::string sig = idDB[id].sig_name;
+      sigDB[sig].record_change(current_time, v);
     }
 
     //geters
@@ -99,6 +102,8 @@ namespace vcd {
     mpz_class current_time;
     std::map<std::string, SigRecord> idDB;    // store the ids in VCD 
     std::map<std::string, SigRecord> sigDB;   // store the signals in VCD
+
+    std::map<std::string, std::string> sig_map; // Signal name::ID
   };
 
 }

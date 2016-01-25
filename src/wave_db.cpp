@@ -58,12 +58,13 @@ void vcd::SigRecord::record_change(mpz_class ctime, const double& val) {
 
 void vcd::SigRecord::print_signal()
 {
+
+    cout << "Signal name: " << sig_name << endl;
     cout << "Changes:";
     
     if (value.size() != 0)
     {
         std::list<std::pair<mpz_class, std::string> >::iterator sig_iter;
-
         cout << value.size() << "\n" << endl;
         for (sig_iter = this->value.begin(); sig_iter != this->value.end(); ++sig_iter)
         {
@@ -75,7 +76,6 @@ void vcd::SigRecord::print_signal()
     else
     {
         std::list<std::pair<mpz_class, double> >::iterator sig_iter;
-
         cout << rvalue.size() << "\n" << endl;
         for (sig_iter = this->rvalue.begin(); sig_iter != this->rvalue.end(); ++sig_iter)
         {
@@ -83,8 +83,7 @@ void vcd::SigRecord::print_signal()
             double tmp_num = sig_iter->second;
             cout << "-> " << tmp_mpz.get_d() << "\t:\t" << tmp_num << endl;
         }
-    }
-    
+    }  
     cout << endl;
 }
 
@@ -122,6 +121,9 @@ void vcd::WaveDB::set_time(mpz_class t) {
 
 void vcd::WaveDB::add_id(const std::string& id, const std::string& ref, const CRange& r, unsigned int w) {
   idDB[id] = SigRecord(ref, r, w);
+  sigDB[ref] =  SigRecord(ref, r, w);
+
+  sig_map[id] = ref;
 }
 
 
@@ -148,13 +150,12 @@ void vcd::WaveDB::report_signals_all( vcd::report_style_t style )
    //report all signal changes
    //iterates the idDB map
    
-    cout << "--Signal Report--\n" << endl;
-
     std::map<std::string, vcd::SigRecord>::iterator sig_iter;
 
-    cout << "Total Signals:" << idDB.size() << "\n" << endl;
+    cout << "--Signal Report--\n" << endl; 
+    cout << "Total Signals:" << sigDB.size() << "\n" << endl;
 
-   for (sig_iter = idDB.begin(); sig_iter != idDB.end(); ++sig_iter)
+   for (sig_iter = sigDB.begin(); sig_iter != sigDB.end(); ++sig_iter)
    {
        string tmp_nam = sig_iter->first;
        vcd::SigRecord tmp_sig = sig_iter->second;
