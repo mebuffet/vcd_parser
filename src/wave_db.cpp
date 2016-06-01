@@ -60,6 +60,8 @@ void vcd::SigRecord::print_signal()
 {
 
     cout << "Signal name: " << sig_name << endl;
+    cout << "Signal width: " << this->width << endl;
+    
     cout << "Changes:";
     
     if (value.size() != 0)
@@ -87,6 +89,29 @@ void vcd::SigRecord::print_signal()
     cout << endl;
 }
 
+vcd:: diff_index_T vcd::SigRecord::diffSig_onestep(sig_iter_T pos)
+{
+	sig_iter_T prev_pos;
+	pair<mpz_class, string> value_pair;
+	string val1, val2;
+	vcd::diff_index_T diff_idx;
+
+	prev_pos = pos;
+	value_pair = *pos;
+	val1 = value_pair.second;
+	advance(prev_pos, -1);
+    value_pair = *prev_pos;
+	val2 = value_pair.second;
+    
+    cout << "@@ val1: " << val1 << "  val2: " << val2 << endl; 
+
+	for (unsigned int i = 0; i<val1.length(); ++i)
+		if (val1[i] != val2[i])
+			diff_idx.push_back(i);
+
+	return diff_idx;
+}
+
 vcd::WaveDB::WaveDB() 
   : delimiter('/'), time_unit(1, "ns"), current_time(0) { }
 
@@ -104,7 +129,12 @@ void vcd::WaveDB::push_scope(const string& s) {
     hier = s;
   else
     hier += "/" + s;
-  current_scope.push_back(s);
+  this->current_scope.push_back(s);
+  
+  // auto it = this->current_scope.rbegin();
+  // string tmph = *it;
+  
+  // std::cout << ">> Registered scope. " << tmph << " " << current_scope.size() << std::endl;
 }
 
 void vcd::WaveDB::pop_scope() {
@@ -120,10 +150,19 @@ void vcd::WaveDB::set_time(mpz_class t) {
 }
 
 void vcd::WaveDB::add_id(const std::string& id, const std::string& ref, const CRange& r, unsigned int w) {
-  idDB[id] = SigRecord(ref, r, w);
-  sigDB[ref] =  SigRecord(ref, r, w);
+  
+  std::list<std::string>::reverse_iterator lit = this->current_scope.rbegin();
+      
+  // if (lit==current_scope.rend())
+  //   std::cout << "EMpty list" << std::endl;
+  
+  std::string module = *lit;
+  std::string ref_name = module + ":" + ref;
+  
+  idDB[id] = SigRecord(ref_name, r, w); 
+  sigDB[ref_name] =  SigRecord(ref_name, r, w);
 
-  sig_map[id] = ref;
+  sig_map[id] = ref_name;
 }
 
 
@@ -137,6 +176,8 @@ void vcd::WaveDB::report_scope()
     std::list<std::string>::iterator lit;
 
     cout << "--Scope Report--\n" << endl;
+    
+    cout << "\t-Size: " << current_scope.size() << endl;
 
     for(lit = current_scope.begin(); lit != current_scope.end(); ++lit)
     {
@@ -151,6 +192,7 @@ void vcd::WaveDB::report_signals_all( vcd::report_style_t style )
    //iterates the idDB map
    
     std::map<std::string, vcd::SigRecord>::iterator sig_iter;
+    std::list<std::pair<mpz_class, std::string> >::iterator stamp_iter;
 
     cout << "--Signal Report--\n" << endl; 
     cout << "Total Signals:" << sigDB.size() << "\n" << endl;
@@ -162,7 +204,29 @@ void vcd::WaveDB::report_signals_all( vcd::report_style_t style )
 
        cout << "Signal ID: " << tmp_nam << endl;
        tmp_sig.print_signal();
-
+       
+       
+       if (tmp_sig.width > 1)
+       {
+            cout << "\t -> Bus Signal\n" << endl;
+            
+            tmp_sig.print_signal();
+            for (stamp_iter = tmp_sig.value.begin(); stamp_iter != tmp_sig.value.end(); ++stamp_iter)
+            {
+                diff_index_T diffs = tmp_sig.diffSig_onestep(stamp_iter);
+                cout << "    - Nof Deferences: " << diffs.size() << endl;
+                
+                cout << "       -Idices: ";
+                if (diffs.size())
+                    for (int ix =0; ix < diffs.size(); ++ix)
+                    {
+                        cout << diffs[ix];
+                    }
+                    
+                cout << endl;
+            }
+       }
+       
    }
 
 }

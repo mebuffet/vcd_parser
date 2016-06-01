@@ -1,0 +1,35 @@
+$date
+  March 17, 2016
+$end
+$version
+   VCD generator tool version info text.
+$end
+$comment
+   Any comment text.
+$end
+$timescale 1ps $end
+$scope module logic $end
+$var wire 1 G1 $ $end
+$var wire 1 G2 % $end
+$var wire 1 G3 & $end
+$var wire 1 G0 ' $end
+$upscope $end
+$enddefinitions $end
+$dumpvars
+0$
+0%
+0&
+0'
+$end
+#0
+0$
+1%
+0&
+1'
+#2211
+0'
+#2296
+1$
+1&
+#2302
+0$

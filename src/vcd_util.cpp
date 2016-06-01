@@ -45,7 +45,7 @@ int vcd::VCDLexer::lexer(vcd_token_type * rv) {
       else std::getline(*istm, buf);
     }
 
-    //std::cout << "buf: " << buf;
+    //std::cout << "buf: " << buf << std::endl;
 
     string token = next_token();
     if(token.empty()) continue;

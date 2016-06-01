@@ -45,9 +45,11 @@ int main(int argc, char* argv[]) {
 
   std::cout << "- hier field: '" << db.get_hier() << "'" << std::endl;
 
+  vcd::time_unit_T time_unit = db.get_time_unit();
+  std::cout << "- time unit: " << time_unit.first << " " << time_unit.second << std::endl;
+
   db.report_scope();
   db.report_signals_all (d_style);
-
 
   return 1;
   

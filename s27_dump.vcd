@@ -1,0 +1,38 @@
+$date
+	Thu May 19 23:19:25 2016
+$end
+$version
+	QuestaSim Version 10.4c_5
+$end
+$timescale 1ns $end
+
+$scope module s27_tb_2 $end
+
+$scope module DUT $end
+
+$scope module G7_reg $end
+$var wire 1 ! Q $end
+$upscope $end
+
+$scope module G6_reg $end
+$var wire 1 " Q $end
+$upscope $end
+
+$scope module G5_reg $end
+$var wire 1 # Q $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x#
+x"
+x!
+$end
+#100
+1!
+0"
+1#
+#300
+0#

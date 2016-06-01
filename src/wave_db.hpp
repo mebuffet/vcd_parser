@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2013 Wei Song <songw@cs.man.ac.uk> 
+ * Copyright (c) 2013-2013 Wei Song <songw@cs.man.ac.uk>
  *    Advanced Processor Technologies Group, School of Computer Science
  *    University of Manchester, Manchester M13 9PL UK
  *
@@ -19,7 +19,7 @@
  *    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
  */
 
-/* 
+/*
  * A waveform data base
  * 01/07/2013   Wei Song
  *
@@ -47,6 +47,10 @@ namespace vcd {
   };
 
   typedef enum _report_style report_style_t;
+  typedef std::vector<unsigned int> diff_index_T;
+  typedef std::list<std::pair<mpz_class, std::string> >::iterator sig_iter_T;
+
+  typedef std::pair<unsigned int, std::string> time_unit_T;
 
   class SigRecord {
   public:
@@ -61,9 +65,17 @@ namespace vcd {
     void record_change(mpz_class, const std::string&);
     void record_change(mpz_class, const double&);
     void record_change(mpz_class, const char&);
-    
+
+    //return index of differences between timestamps of a vector signal
+    diff_index_T diffSig_onestep(sig_iter_T pos);
+
     void print_signal();
   };
+
+  //waveform database definitions
+  typedef std::map<std::string, SigRecord> wave_db_T;
+  typedef std::map<std::string, SigRecord>::iterator wave_db_iter_T;  //database iterator
+
 
   class WaveDB {
   public:
@@ -77,10 +89,12 @@ namespace vcd {
     void add_id(const std::string&, const std::string&, const CRange&, unsigned int width);
     template<typename VT>
     void add_change(const std::string& id, const VT& v) {
-      assert(idDB.count(id));
+      //assert(idDB.count(id));
       idDB[id].record_change(current_time, v);
-      
+
       std::string sig = idDB[id].sig_name;
+      
+      std::list<std::string>::reverse_iterator lit = this->current_scope.rbegin();      
       sigDB[sig].record_change(current_time, v);
     }
 
@@ -88,7 +102,18 @@ namespace vcd {
     char get_delimeter();
     std::string get_hier()
         { return this->hier; }
-    
+
+    time_unit_T get_time_unit()
+        { return this->time_unit; }
+
+    //return waveform info with signal ID as key
+    wave_db_T& get_wave_db_id()
+        { return this->idDB; }
+
+    //return waveform info with signal name as key
+    wave_db_T& get_wave_db_sig()
+        { return this->sigDB; }
+
     //display functions
     void report_scope();
     void report_signals_all( report_style_t style );
@@ -100,7 +125,7 @@ namespace vcd {
     std::string hier;
     std::pair<unsigned int, std::string> time_unit;
     mpz_class current_time;
-    std::map<std::string, SigRecord> idDB;    // store the ids in VCD 
+    std::map<std::string, SigRecord> idDB;    // store the ids in VCD
     std::map<std::string, SigRecord> sigDB;   // store the signals in VCD
 
     std::map<std::string, std::string> sig_map; // Signal name::ID

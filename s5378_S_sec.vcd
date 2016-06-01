@@ -1,0 +1,164 @@
+$date
+  Apr 19, 2016
+$end
+$version
+  VCD generation tool for PowerSim v1.0
+$end
+$timescale 1ps $end
+$scope module logic $end
+$var wire 1 n3072gat n3072gat $end
+$var wire 1 n3065gat n3065gat $end
+$var wire 1 n3091gat n3091gat $end
+$var wire 1 n3094gat n3094gat $end
+$var wire 1 n3097gat n3097gat $end
+$var wire 1 n3095gat n3095gat $end
+$var wire 1 n3075gat n3075gat $end
+$var wire 1 n3076gat n3076gat $end
+$var wire 1 n3100gat n3100gat $end
+$var wire 1 n3068gat n3068gat $end
+$var wire 1 n3081gat n3081gat $end
+$var wire 1 n3099gat n3099gat $end
+$var wire 1 n3079gat n3079gat $end
+$var wire 1 n3090gat n3090gat $end
+$var wire 1 n3085gat n3085gat $end
+$var wire 1 n3077gat n3077gat $end
+$var wire 1 n3070gat n3070gat $end
+$var wire 1 n3086gat n3086gat $end
+$var wire 1 n3071gat n3071gat $end
+$var wire 1 CK CK $end
+$var wire 1 n3084gat n3084gat $end
+$var wire 1 n3082gat n3082gat $end
+$var wire 1 n3069gat n3069gat $end
+$var wire 1 n3074gat n3074gat $end
+$var wire 1 n3092gat n3092gat $end
+$var wire 1 n3087gat n3087gat $end
+$var wire 1 n3073gat n3073gat $end
+$var wire 1 n3089gat n3089gat $end
+$var wire 1 n3093gat n3093gat $end
+$var wire 1 n3078gat n3078gat $end
+$var wire 1 n3080gat n3080gat $end
+$var wire 1 n3083gat n3083gat $end
+$var wire 1 n3098gat n3098gat $end
+$var wire 1 n3088gat n3088gat $end
+$var wire 1 n3067gat n3067gat $end
+$var wire 1 n3066gat n3066gat $end
+$upscope $end
+$enddefinitions $end
+$dumpvars
+0n3072gat
+0n3065gat
+0n3091gat
+0n3094gat
+0n3097gat
+0n3095gat
+0n3075gat
+0n3076gat
+0n3100gat
+0n3068gat
+0n3081gat
+0n3099gat
+0n3079gat
+0n3090gat
+0n3085gat
+0n3077gat
+0n3070gat
+0n3086gat
+0n3071gat
+0CK
+0n3084gat
+0n3082gat
+0n3069gat
+0n3074gat
+0n3092gat
+0n3087gat
+0n3073gat
+0n3089gat
+0n3093gat
+0n3078gat
+0n3080gat
+0n3083gat
+0n3098gat
+0n3088gat
+0n3067gat
+0n3066gat
+$end
+#125
+1CK
+#250
+0CK
+#375
+1CK
+#500
+0CK
+#625
+1CK
+#750
+0CK
+#875
+1CK
+#1000
+0CK
+#1125
+1CK
+#1250
+0CK
+#1375
+1CK
+#1500
+0CK
+#1625
+1CK
+#1750
+0CK
+#1875
+1CK
+#2000
+0CK
+#2125
+1CK
+#2250
+0CK
+#2375
+1CK
+#2500
+0CK
+#2625
+1CK
+#2750
+0CK
+#2875
+1CK
+#3000
+0CK
+#3125
+1CK
+#3250
+0CK
+#3375
+1CK
+#3500
+0CK
+#3625
+1CK
+#3750
+0CK
+#3875
+1CK
+#4000
+0CK
+#4125
+1CK
+#4250
+0CK
+#4375
+1CK
+#4500
+0CK
+#4625
+1CK
+#4750
+0CK
+#4875
+1CK
+#5000
+0CK
